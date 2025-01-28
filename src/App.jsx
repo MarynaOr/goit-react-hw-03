@@ -11,6 +11,7 @@ function App() {
 
   return (
     <>
+    <h1>Phonebook</h1>
     < ContactForm />
     < ContactList />
     < SearchBox />
