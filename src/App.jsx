@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import initialContacts from "./components/Contact/Contact.json";
-// import { number } from "yup";
 import ContactForm from "./components/ContactForm/ContactForm";
 import Contact from "./components/Contact/Contact";
 import ContactList from "./components/ContactList/ContactList";
 
 function App() {
-  // const [newValues, setNewValues] = useState(0);
-  // const [newNumber, setNewNumber] = useState(0);
-
   const [contacts, setContacts] = useState(() => {
-    const saveContacts = JSON.parse(localStorage.getItem("initialContacts"));
+    const saveContacts = JSON.parse(localStorage.getItem("contacts"));
 
-    saveContacts ? saveContacts : initialContacts;
+    return saveContacts ? saveContacts : initialContacts;
   });
 
   useEffect(() => {
@@ -21,32 +17,25 @@ function App() {
   }, [contacts]);
 
   const addNewcontact = (newValues, newNumber) => {
-    if (!newValues || newNumber) return;
+    if (!newValues.trim() || !newNumber.trim()) return;
+
     const newContact = {
       id: crypto.randomUUID(),
       name: newValues,
       number: newNumber,
     };
-
-    setContacts((prev) => {
-      const updateContact = [...prev, newContact];
-      localStorage.setItem("contacts", JSON.stringify(updateContact));
-      return updateContact;
-    });
+    setContacts((prev) => [...prev, newContact]);
   };
 
   const deleteContacts = (id) => {
-    setContacts((prev) => prev.filter((item) => item.id !== id))
-    // const updateContacts = prev.filter((item) => item.id !== id);
-    // localStorage.setItem("contacts", JSON.stringify(updateContacts));
-    // return updateContacts;
+    setContacts((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
     <>
-    <ContactForm/>
+      <ContactForm addNewcontact={addNewcontact} />
       <Contact />
-      <ContactList/>
+      <ContactList contacts={contacts} onDeleteContact={deleteContacts} />
     </>
   );
 }

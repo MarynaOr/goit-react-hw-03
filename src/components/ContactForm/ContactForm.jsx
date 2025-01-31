@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 
@@ -15,7 +15,6 @@ const FeedbackShema = Yup.object().shape({
   phone: Yup.string()
     .matches(phoneValidation, "Invalid format")
     .required("Required"),
-  //   phone: Yup.string().matches(/^\+?\d{10,15}$/, "Invalid phone number"),
 });
 
 const initialValues = {
@@ -23,12 +22,14 @@ const initialValues = {
   phone: "",
 };
 
-const ContactForm = ({ onAddContact }) => {
+const ContactForm = ({ addNewcontact }) => {
   const nameFieldId = useId();
   const phoneFieldId = useId();
 
   const handleSubmit = (values, actions) => {
-    onAddContact(values.username, values.phone)
+    addNewcontact(values.username, values.phone);
+    console.log("Форма відправлена!", values);
+
     actions.resetForm();
   };
 
@@ -38,23 +39,24 @@ const ContactForm = ({ onAddContact }) => {
       onSubmit={handleSubmit}
       validationSchema={FeedbackShema}
     >
-      <form>
-        <div>
-          <label htmlFor={nameFieldId}>Name</label>
-          <Field type="text" name="username" id={nameFieldId} />
-          <ErrorMessage name="username" component="span" />
-        </div>
-        <div>
-          <label htmlFor="phoneFieldId">Number</label>
-          <Field type="tel" name="phone" id={phoneFieldId} />
-          <ErrorMessage name="phone" component="span" />
-        </div>
+      {({ handleSubmit }) => (
+        <Form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor={nameFieldId}>Name</label>
+            <Field type="text" name="username" id={nameFieldId} />
+            <ErrorMessage name="username" component="span" />
+          </div>
+          <div>
+            <label htmlFor="phoneFieldId">Number</label>
+            <Field type="tel" name="phone" id={phoneFieldId} />
+            <ErrorMessage name="phone" component="span" />
+          </div>
 
-        <button type="submit">Add contact</button>
-      </form>
+          <button type="submit">Add contact</button>
+        </Form>
+      )}
     </Formik>
   );
 };
 
 export default ContactForm;
-//  onClick={addNewcontact}
