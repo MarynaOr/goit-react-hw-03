@@ -1,6 +1,5 @@
 import { ErrorMessage, Field, Formik } from "formik";
 import { useId } from "react";
-// import ContactItem from "../ContactList/ContactItem";
 import * as Yup from "yup";
 
 const onlyLaters = /^[A-Za-zА-Яа-яЇїІіЄєҐґ'’\s]+$/;
