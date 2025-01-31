@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
-
+import s from './ContactForm.module.css'
 const onlyLaters = /^[A-Za-zА-Яа-яЇїІіЄєҐґ'’\s]+$/;
 const phoneValidation = /^\+?\d{9,15}$/;
 
@@ -40,19 +40,19 @@ const ContactForm = ({ onAddContact }) => {
       validationSchema={FeedbackShema}
     >
       {({ handleSubmit }) => (
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor={nameFieldId}>Name</label>
-            <Field type="text" name="username" id={nameFieldId} />
-            <ErrorMessage name="username" component="span" />
+        <Form className={s.formik} onSubmit={handleSubmit}>
+          <div className={s.conForm} >
+            <label className={s.label} htmlFor={nameFieldId}>Name</label>
+            <Field className={s.input} type="text" name="username" id={nameFieldId} />
+            <ErrorMessage className={s.error} name="username" component="span" />
           </div>
-          <div>
-            <label htmlFor="phoneFieldId">Number</label>
-            <Field type="tel" name="phone" id={phoneFieldId} />
-            <ErrorMessage name="phone" component="span" />
+          <div className={s.conForm} >
+            <label className={s.label} htmlFor={phoneFieldId}>Number</label>
+            <Field className={s.input} type="tel" name="phone" id={phoneFieldId} />
+            <ErrorMessage className={s.error} name="phone" component="span" />
           </div>
 
-          <button type="submit">Add contact</button>
+          <button className={s.btn} type="submit">Add contact</button>
         </Form>
       )}
     </Formik>
