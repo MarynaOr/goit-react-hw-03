@@ -22,12 +22,12 @@ const initialValues = {
   phone: "",
 };
 
-const ContactForm = ({ addNewcontact }) => {
+const ContactForm = ({ onAddContact  }) => {
   const nameFieldId = useId();
   const phoneFieldId = useId();
 
   const handleSubmit = (values, actions) => {
-    addNewcontact(values.username, values.phone);
+    onAddContact (values.username, values.phone);
     console.log("Форма відправлена!", values);
 
     actions.resetForm();
