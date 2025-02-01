@@ -1,3 +1,5 @@
+import s from './SearchBox.module.css'
+
 const SearchBox = ({ searchValue, onChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -6,14 +8,15 @@ const SearchBox = ({ searchValue, onChange }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className={s.form} onSubmit={handleSubmit}>
         <input
+          className={s.input}
           onChange={onChange}
           type="text"
           name="search"
           value={searchValue}
         />
-        <button>Search</button>
+        <button className={s.btn}>Search</button>
       </form>
     </>
   );

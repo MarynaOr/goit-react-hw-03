@@ -1,0 +1,14 @@
+
+.item{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    max-width: 400px;
+    padding-left: 0;
+}
+
+.contact{
+    background-color: rgb(151, 0, 0);
+}
+
